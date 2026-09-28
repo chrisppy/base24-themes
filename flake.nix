@@ -12,7 +12,7 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
     import-tree.url = "github:vic/import-tree";
-    nixfmt-rs = "github:Mic92/nixfmt-rs/0.1.2";
+    nixfmt-rs.url = "github:Mic92/nixfmt-rs/0.1.2";
   };
 
   outputs =
