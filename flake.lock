@@ -12,11 +12,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1791824152,
-        "narHash": "sha256-813hpxyPq2KCOMp6y49Ip5liD1Hf6GXFRYgy18bs1Bc=",
+        "lastModified": 1791826216,
+        "narHash": "sha256-3m5hRvtjQ0nHFTcCn9cYfIZ0AFawIy4SVPkjPe01uhs=",
         "owner": "chrisppy",
         "repo": "devfmt",
-        "rev": "2a6fa64bf0f691e722d6b852c7789777c1492304",
+        "rev": "91611afc25c095a3645846b0d7c2ffdb9493a876",
         "type": "github"
       },
       "original": {
@@ -48,15 +48,16 @@
     },
     "import-tree": {
       "locked": {
-        "lastModified": 1788467110,
-        "narHash": "sha256-ljEMTXP/rH0tOvDzc9gzwww6KcHRPRnEHzd9lK48V7s=",
-        "owner": "vic",
+        "lastModified": 1778781969,
+        "narHash": "sha256-Jjuz5CmSkur8KvLDoGa+vylEp+RkQtv4mt/qcMznpH0=",
+        "owner": "denful",
         "repo": "import-tree",
-        "rev": "eb1b52eaecc57f7c136d07ae8a93e724dfecac46",
+        "rev": "d321337efd0f23a9eb14a42adb7b2c29313ab274",
         "type": "github"
       },
       "original": {
-        "owner": "vic",
+        "owner": "denful",
+        "ref": "v0.2.0",
         "repo": "import-tree",
         "type": "github"
       }
