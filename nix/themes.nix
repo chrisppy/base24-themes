@@ -1,36 +1,30 @@
-{ pkgs, lib, ... }:
-
-let
-  themesDir = ./../themes;
-
-  # Helper to parse any YAML file into a Nix attrset
-  readYaml =
-    path:
+{
+  perSystem =
+    { pkgs, lib, ... }:
     let
-      jsonFile = pkgs.runCommand "yaml-to-json" { } ''
-        ${pkgs.yq-go}/bin/yq eval -o=json '${path}' > $out
-      '';
-    in
-    builtins.fromJSON (builtins.readFile jsonFile);
+      themesDir = ./../themes;
 
-  # Read all .yaml files in the directory
-  yamlFiles = lib.filterAttrs (name: type: type == "regular" && lib.hasSuffix ".yaml" name) (
-    builtins.readDir themesDir
-  );
+      # Read all .yaml files in the directory
+      yamlFiles = lib.filterAttrs (name: type: type == "regular" && lib.hasSuffix ".yaml" name) (
+        builtins.readDir themesDir
+      );
 
-  # Map each file to [ { name = theme.name; value = path; } ]
-  packagesList = lib.mapAttrsToList (
-    fileName: _:
-    let
-      filePath = themesDir + "/${fileName}";
-      themeData = readYaml filePath;
+      # Convert each YAML file into a derivation containing JSON
+      packagesList = lib.mapAttrsToList (
+        fileName: _:
+        let
+          filePath = themesDir + "/${fileName}";
+          baseName = lib.removeSuffix ".yaml" fileName;
+        in
+        {
+          name = baseName;
+          value = pkgs.runCommand "theme-${baseName}.json" { } ''
+            ${pkgs.yq-go}/bin/yq eval -o=json '${filePath}' > $out
+          '';
+        }
+      ) yamlFiles;
     in
     {
-      inherit (themeData) name;
-      value = filePath;
-    }
-  ) yamlFiles;
-in
-{
-  perSystem.packages = builtins.listToAttrs packagesList;
+      packages = builtins.listToAttrs packagesList;
+    };
 }
