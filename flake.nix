@@ -3,23 +3,25 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    treefmt-nix = {
-      url = "github:numtide/treefmt-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    systems.url = "github:nix-systems/default";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
     import-tree.url = "github:vic/import-tree";
-    nixfmt-rs.url = "github:Mic92/nixfmt-rs/0.1.2";
+    devfmt = {
+      url = "github:chrisppy/devfmt";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
     inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = import inputs.systems;
       imports = [
         (inputs.import-tree ./nix)
+        inputs.devfmt.flakeModules.default
       ];
     };
 }
