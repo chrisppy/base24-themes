@@ -1,5 +1,5 @@
 {
-  description = "A structured Base16/Base24 YAML theme flake";
+  description = "A structured Base16/Base24 theme flake";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
