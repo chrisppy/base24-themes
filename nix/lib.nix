@@ -109,6 +109,28 @@ let
       builtins.concatStringsSep "\n" (
         map (name: "$" + name + ": #" + normalized.${name} + ";") colorNames
       );
+
+    toQml =
+      theme:
+      let
+        normalized = normalizeTheme theme;
+        variant = theme.variant or "dark";
+      in
+      ''
+        // Generated from chrisppy/base24-themes
+        // Variant: ${variant}
+        // Do not edit manually.
+
+        pragma Singleton
+        import QtQuick
+
+        QtObject {
+        ${builtins.concatStringsSep "\n" (
+          map (name: "    readonly property color ${name}: \"#${normalized.${name}}\"") colorNames
+        )}
+        }
+      '';
+
   };
 in
 {

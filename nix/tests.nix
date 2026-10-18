@@ -5,6 +5,7 @@
     { pkgs, ... }:
 
     let
+      lib = inputs.nixpkgs.lib;
       base24 = inputs.self.lib.base24;
       themes = inputs.self.themes;
 
@@ -82,9 +83,23 @@
         _: theme: base24.getColors theme
       ) themes) true;
 
-      yamlHelperWorks = inputs.nixpkgs.lib.hasInfix "base00: \"000000\"" (base24.toYaml base16Theme);
+      yamlHelperWorks = lib.hasInfix ''base00: "000000"'' (base24.toYaml base16Theme);
 
-      scssHelperWorks = inputs.nixpkgs.lib.hasInfix "$base00: #000000;" (base24.toScss base16Theme);
+      scssHelperWorks = lib.hasInfix "$base00: #000000;" (base24.toScss base16Theme);
+
+      qml = base24.toQml (base16Theme // { variant = "light"; });
+
+      qmlHelperWorks =
+        lib.hasInfix "pragma Singleton" qml
+        && lib.hasInfix "import QtQuick" qml
+        && lib.hasInfix "QtObject {" qml
+        && lib.hasInfix "Variant: light" qml
+        && lib.hasInfix ''readonly property color base00: "#000000"'' qml
+        && lib.hasInfix ''readonly property color base17: "#eeeeee"'' qml;
+
+      allQmlColorsPresent = builtins.all (
+        name: lib.hasInfix "readonly property color ${name}:" qml
+      ) base24.colorNames;
 
     in
     {
@@ -102,6 +117,8 @@
         assert allDiscoveredThemesValid;
         assert yamlHelperWorks;
         assert scssHelperWorks;
+        assert qmlHelperWorks;
+        assert allQmlColorsPresent;
 
         pkgs.runCommand "base24-themes-tests" { } ''
           touch "$out"
