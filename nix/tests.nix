@@ -104,7 +104,7 @@
     in
     {
       checks.base24-themes =
-        assert builtins.hasAttr "camden" themes;
+        assert builtins.hasAttr "birdland" themes;
         assert allFallbacksCorrect;
         assert explicitColorsPreserved;
         assert colorNamesMatch;

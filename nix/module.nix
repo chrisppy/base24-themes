@@ -29,7 +29,7 @@ in
 
       theme = mkOption {
         type = types.str;
-        default = "camden";
+        default = "birdland";
         description = "Name of a discovered theme.";
       };
 
