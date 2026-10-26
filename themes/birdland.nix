@@ -1,9 +1,13 @@
 {
+  name = "Birdland";
   author = "chrisppy";
   variant = "dark";
-  # 2023 City Connect: black / grayscale exterior
-  # 2026 City Connect: cream / Camden green / orange
-  # Traditional Orioles: black / orange / white / gray
+  # Baltimore Orioles:
+  #   Primary: Orioles orange #df4601 / black
+  #   2023 City Connect: black / grayscale exterior
+  #   2026 City Connect: cream / Camden green / orange (warehouse brick trim)
+  # Every accent from base08 to base0F reaches at least 4.5:1 contrast on base00.
+
   base00 = "0b0b0b"; # Black — primary background
   base01 = "151515"; # Black — panels / secondary background
   base02 = "292929"; # Dark gray — selection / highlighted background
@@ -12,21 +16,22 @@
   base05 = "e5dfd2"; # Cream — primary foreground / 2026 City Connect
   base06 = "f2eee5"; # Warm white — bright foreground
   base07 = "fffdf8"; # White — maximum contrast
-  base08 = "ff5a00"; # Orioles orange — errors / primary accent
+  base08 = "df4601"; # Orioles orange (official) — variables / errors
   base09 = "ff7a1a"; # Bright orange — numbers / constants
-  base0A = "c99a3d"; # Brass/gold — warnings / Eutaw Street plaques
-  base0B = "47735a"; # Camden Yards green — strings / success
-  base0C = "5b8f7a"; # Muted Camden green — cyan
-  base0D = "d98b45"; # Brick/warehouse orange — links / identifiers
-  base0E = "a85d3a"; # Baltimore brick — special syntax
-  base0F = "b8b0a3"; # Warm gray — escaped characters / secondary
-  # Base24 ANSI extensions
-  base10 = "151515"; # Bright black — darker background
-  base11 = "0b0b0b"; # Bright black variant — darkest background
-  base12 = "ff6b1a"; # Bright red — bright Orioles orange
-  base13 = "e0b45a"; # Bright yellow — bright brass
-  base14 = "5f9a7a"; # Bright green — bright Camden green
-  base15 = "72b89a"; # Bright cyan — bright muted green
-  base16 = "e69a52"; # Bright blue — bright warehouse orange
-  base17 = "c97850"; # Bright magenta — bright Baltimore brick
+  base0A = "d4ad4c"; # Brass — classes / warnings / Eutaw Street plaques
+  base0B = "4f8f6a"; # Camden Yards seat green — strings / success
+  base0C = "86b8a4"; # Pale Camden green — support / escapes (cyan slot)
+  base0D = "d98b45"; # Warehouse orange — functions / links (blue slot)
+  base0E = "b8683f"; # Baltimore brick — keywords (magenta slot)
+  base0F = "b8b0a3"; # Warm gray — deprecated / embedded
+
+  # Base24 extensions
+  base10 = "070707"; # Darker background — must not be lighter than base00
+  base11 = "030303"; # Darkest background — must not be lighter than base10
+  base12 = "ff5a00"; # Bright red — bright Orioles orange
+  base13 = "ebc770"; # Bright yellow — bright brass
+  base14 = "6cad86"; # Bright green — bright Camden green
+  base15 = "a6d3c1"; # Bright cyan — bright pale green
+  base16 = "f0a764"; # Bright blue — bright warehouse orange
+  base17 = "d6875c"; # Bright magenta — bright brick
 }

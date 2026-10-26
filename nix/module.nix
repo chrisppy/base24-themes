@@ -3,54 +3,57 @@
 let
   inherit (lib) mkIf mkOption types;
 
-  themes = import ./_themes.nix { inherit lib; };
-  themeLib = import ./_lib.nix;
+  # Reuse the flake's own outputs so there is a single implementation.
+  base24 = config.flake.lib.base24;
+  inherit (base24) themes;
 
-  cfg = config.base24;
+  # A NixOS / Home Manager module. It must be a function so that `config`
+  # below is the consumer's configuration, not the flake-parts one.
+  module =
+    { config, ... }:
+    let
+      cfg = config.base24;
+      selected = if cfg.customTheme != null then cfg.customTheme else themes.${cfg.theme};
+      normalized = base24.normalizeTheme selected;
+    in
+    {
+      options.base24 = {
+        enable = mkOption {
+          type = types.bool;
+          default = true;
+          description = "Expose the selected Base24 theme as `config.lib.base24`.";
+        };
 
-  selectedTheme =
-    if cfg.customTheme != null then
-      cfg.customTheme
-    else if builtins.hasAttr cfg.theme themes then
-      themes.${cfg.theme}
-    else
-      throw "base24: unknown theme '${cfg.theme}'";
+        theme = mkOption {
+          type = types.enum (builtins.attrNames themes);
+          default = "birdland";
+          description = "Name of a bundled theme.";
+        };
 
-  normalized = themeLib.normalizeTheme selectedTheme;
+        customTheme = mkOption {
+          type = types.nullOr (types.attrsOf types.str);
+          default = null;
+          description = "Inline Base16 or Base24 theme. Overrides `theme` when set.";
+        };
+      };
+
+      config = mkIf cfg.enable {
+        lib.base24 = base24 // {
+          selected = normalized;
+          colors = base24.getColors normalized;
+          getColor = base24.getColor normalized;
+          getColorHex = base24.getColorHex normalized;
+          yaml = base24.toYaml normalized;
+          json = base24.toJson normalized;
+          scss = base24.toScss normalized;
+          qml = base24.toQml normalized;
+        };
+      };
+    };
 in
 {
-  flake.nixosModules.base24 = {
-    options.base24 = {
-      enable = mkOption {
-        type = types.bool;
-        default = true;
-        description = "Enable Base24 theme exports.";
-      };
-
-      theme = mkOption {
-        type = types.str;
-        default = "birdland";
-        description = "Name of a discovered theme.";
-      };
-
-      customTheme = mkOption {
-        type = types.nullOr types.attrs;
-        default = null;
-        description = "Custom inline Base16 or Base24 theme.";
-      };
-    };
-
-    config = mkIf cfg.enable {
-      lib.base24 = {
-        inherit themes;
-        selected = normalized;
-        colors = themeLib.getColors selectedTheme;
-
-        getColor = name: themeLib.getColor selectedTheme name;
-
-        inherit (themeLib) normalizeTheme;
-        inherit (themeLib) getColors;
-      };
-    };
-  };
+  flake.nixosModules.base24 = module;
+  flake.nixosModules.default = module;
+  flake.homeManagerModules.base24 = module;
+  flake.homeManagerModules.default = module;
 }
