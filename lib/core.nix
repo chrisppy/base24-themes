@@ -69,9 +69,7 @@ rec {
       lowered = lib.genAttrs (builtins.filter (name: builtins.hasAttr name theme) colorNames) (
         name: lib.toLower theme.${name}
       );
-      extended = builtins.mapAttrs (
-        name: source: lowered.${name} or lowered.${source}
-      ) fallbacks;
+      extended = builtins.mapAttrs (name: source: lowered.${name} or lowered.${source}) fallbacks;
     in
     if missing != [ ] then
       throw "base24-themes: missing Base16 colors: ${lib.concatStringsSep ", " missing}"

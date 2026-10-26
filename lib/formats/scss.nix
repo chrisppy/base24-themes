@@ -1,5 +1,5 @@
 # SCSS variables, one per color: `$base00: #0b0b0b;`.
-{ lib, core }:
+{ lib, core, ... }:
 
 let
   inherit (core) colorNames normalizeTheme;

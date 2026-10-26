@@ -18,7 +18,7 @@ in
     lib.hasPrefix ''system: "base24"'' yaml
     && lib.hasInfix ''name: "Test"'' yaml
     && lib.hasInfix "palette:\n" yaml
-    && lib.hasInfix ''  base00: "000000"'' yaml
+    && lib.hasInfix ''base00: "000000"'' yaml
     && lib.hasSuffix "\n" yaml;
 
   json =

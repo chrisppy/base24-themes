@@ -1,19 +1,19 @@
 # base24-themes
 
-[Base24](https://github.com/tinted-theming/base24) color schemes for Nix, with a small library of
-format converters and a module for NixOS and Home Manager.
+[Base24](https://github.com/tinted-theming/base24) color schemes for Nix, with a
+small library of format converters and a module for NixOS and Home Manager.
 
 ## Birdland
 
 ![Birdland palette and syntax sample](previews/birdland.svg)
 
-A dark theme in Baltimore Orioles colors: black and gray from the 2023 City Connect uniforms,
-cream, Camden Yards green and warehouse-brick orange from the 2026 City Connect uniforms, and
-the official Orioles orange (`#df4601`). Every accent reaches at least 4.5:1 contrast on the
-background.
+A dark theme in Baltimore Orioles colors: black and gray from the 2023 City
+Connect uniforms, cream, Camden Yards green and warehouse-brick orange from the
+2026 City Connect uniforms, and the official Orioles orange (`#df4601`). Every
+accent reaches at least 4.5:1 contrast on the background.
 
 | Slot | Color | Hex | Used for |
-| --- | --- | --- | --- |
+| -------- | ---------------------------- | -------- | ---------------------------- |
 | `base00` | Black | `0b0b0b` | Background |
 | `base01` | Black | `151515` | Panels, secondary background |
 | `base02` | Dark gray | `292929` | Selection |
@@ -39,18 +39,19 @@ background.
 | `base16` | Bright warehouse orange | `f0a764` | Bright blue |
 | `base17` | Bright brick | `d6875c` | Bright magenta |
 
-The blue and magenta slots are deliberately orange and brick to stay within the Orioles colors.
+The blue and magenta slots are deliberately orange and brick to stay within the
+Orioles colors.
 
 ## Features
 
-- **Bundled theme**: ships with `birdland` (dark), with more planned. Every file in `themes/` is
-  picked up automatically.
-- **Format converters**: `toYaml` (tinted-theming scheme format), `toJson`, `toScss`, `toQml` and
-  `toSvg` (the preview image above).
-- **Validation**: themes are checked for missing or malformed colors, and `nix flake check`
-  verifies every bundled theme.
-- **Module**: one module for NixOS and Home Manager that exposes the selected theme as
-  `config.lib.base24`.
+- **Bundled theme**: ships with `birdland` (dark), with more planned. Every file
+  in `themes/` is picked up automatically.
+- **Format converters**: `toYaml` (tinted-theming scheme format), `toJson`,
+  `toScss`, `toQml` and `toSvg` (the preview image above).
+- **Validation**: themes are checked for missing or malformed colors, and
+  `nix flake check` verifies every bundled theme.
+- **Module**: one module for NixOS and Home Manager that exposes the selected
+  theme as `config.lib.base24`.
 
 ## Installation
 
@@ -72,8 +73,9 @@ Add `base24-themes` as an input in your `flake.nix`:
 
 ## Library
 
-Everything lives at `lib.base24`: the functions, the bundled themes (`lib.base24.themes.<name>`)
-and their preview images (`lib.base24.previews.<name>`). It is system-independent.
+Everything lives at `lib.base24`: the functions, the bundled themes
+(`lib.base24.themes.<name>`) and their preview images
+(`lib.base24.previews.<name>`). It is system-independent.
 
 ```nix
 let
@@ -90,15 +92,15 @@ in
 ```
 
 | Function | Returns |
-| --- | --- |
+| ------------------------------------------------ | ------------------------------------------------------------------------------ |
 | `normalizeTheme theme` | The theme with all 24 colors filled in and lowercased; throws on invalid input |
 | `getColors theme` | An attrset of just the 24 colors |
 | `getColor theme name` / `getColorHex theme name` | One color, without or with a leading `#` |
 | `toYaml`, `toJson`, `toScss`, `toQml` | The theme as a string in that format |
 | `toSvg theme` | A preview image: palette swatches plus a highlighted code sample |
 
-`toQml` produces a `pragma Singleton` file. Register it in a `qmldir` next to it, for example
-`singleton Theme 1.0 Theme.qml`.
+`toQml` produces a `pragma Singleton` file. Register it in a `qmldir` next to
+it, for example `singleton Theme 1.0 Theme.qml`.
 
 The library needs only a nixpkgs `lib`, so it also works without flakes:
 
@@ -108,8 +110,9 @@ base24 = import "${base24-themes-source}/lib" { inherit (pkgs) lib; };
 
 ## Defining your own theme
 
-A theme is a flat attrset of `base00`–`base17`, plus optional `name`, `author` and `variant`
-(`"dark"` or `"light"`, default `"dark"`). Colors are six hex digits **without** a leading `#`.
+A theme is a flat attrset of `base00`–`base17`, plus optional `name`, `author`
+and `variant` (`"dark"` or `"light"`, default `"dark"`). Colors are six hex
+digits **without** a leading `#`.
 
 ```nix
 {
@@ -144,11 +147,13 @@ A theme is a flat attrset of `base00`–`base17`, plus optional `name`, `author`
 }
 ```
 
-Base16 themes (only `base00`–`base0F`) are accepted too. The missing colors fall back to
-`base00` for `base10`/`base11` and to the matching normal color for `base12`–`base17`.
+Base16 themes (only `base00`–`base0F`) are accepted too. The missing colors fall
+back to `base00` for `base10`/`base11` and to the matching normal color for
+`base12`–`base17`.
 
-To bundle a theme, add it as `themes/<name>.nix`. Its key is the file name, and `name` defaults
-to it. Bundled themes must define all 24 colors and need a preview image:
+To bundle a theme, add it as `themes/<name>.nix`. Its key is the file name, and
+`name` defaults to it. Bundled themes must define all 24 colors and need a
+preview image:
 
 ```sh
 nix eval --raw .#lib.base24.previews.<name> > previews/<name>.svg
@@ -158,7 +163,8 @@ nix eval --raw .#lib.base24.previews.<name> > previews/<name>.svg
 
 ## NixOS and Home Manager module
 
-The same module is exported as `nixosModules.default` and `homeManagerModules.default`:
+The same module is exported as `nixosModules.default` and
+`homeManagerModules.default`:
 
 ```nix
 { inputs, config, ... }: {
@@ -175,7 +181,7 @@ The same module is exported as `nixosModules.default` and `homeManagerModules.de
 ```
 
 | Option | Default | Description |
-| --- | --- | --- |
+| -------------------- | ------------ | --------------------------------------- |
 | `base24.enable` | `true` | Expose the theme as `config.lib.base24` |
 | `base24.theme` | `"birdland"` | A bundled theme name |
 | `base24.customTheme` | `null` | An inline theme; overrides `theme` |
@@ -204,9 +210,9 @@ themes/              one file per theme
 previews/            generated SVG previews used in this README
 ```
 
-To add a format, create `lib/formats/<name>.nix` (it receives `{ lib, core }` and returns a
-`theme -> string` function), register it in `lib/default.nix` and add a test to
-`tests/formats.nix`.
+To add a format, create `lib/formats/<name>.nix` (it receives `{ lib, core }`
+and returns a `theme -> string` function), register it in `lib/default.nix` and
+add a test to `tests/formats.nix`.
 
 ## License
 

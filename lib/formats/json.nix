@@ -1,5 +1,5 @@
 # The theme metadata plus a `palette` attrset, as JSON.
-{ lib, core }:
+{ core, ... }:
 
 let
   inherit (core) getMeta getColors;

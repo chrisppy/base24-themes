@@ -1,6 +1,6 @@
 # A QML singleton. Register it in a qmldir file, e.g.
 #   singleton Theme 1.0 Theme.qml
-{ lib, core }:
+{ lib, core, ... }:
 
 let
   inherit (core) colorNames normalizeTheme getMeta;

@@ -45,7 +45,7 @@ in
 
   disabled = !(disabled.lib ? base24);
 
-  rejectsUnknownTheme = fails (
-    (evalModule modules.nixos { base24.theme = "does-not-exist"; }).base24.theme
-  );
+  rejectsUnknownTheme =
+    fails
+      (evalModule modules.nixos { base24.theme = "does-not-exist"; }).base24.theme;
 }

@@ -19,8 +19,9 @@
     in
     {
       checks.base24-themes =
-        assert lib.assertMsg (failed == [ ])
-          "base24-themes tests failed: ${lib.concatStringsSep ", " failed}";
+        assert lib.assertMsg (
+          failed == [ ]
+        ) "base24-themes tests failed: ${lib.concatStringsSep ", " failed}";
         pkgs.runCommandLocal "base24-themes-tests" { } ''
           touch "$out"
         '';

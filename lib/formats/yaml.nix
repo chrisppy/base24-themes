@@ -1,5 +1,5 @@
 # Tinted-theming scheme format (system/name/author/variant + palette).
-{ lib, core }:
+{ lib, core, ... }:
 
 let
   inherit (core) colorNames normalizeTheme getMeta;

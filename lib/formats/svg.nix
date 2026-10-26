@@ -1,6 +1,6 @@
 # Preview image: palette swatches plus a syntax-highlighted code sample.
 # The README images in previews/ are generated with this (see `previews`).
-{ lib, core }:
+{ lib, core, ... }:
 
 let
   inherit (core) colorNames normalizeTheme getMeta;
@@ -40,52 +40,151 @@ let
     ''
       <text x="${str margin}" y="${str (y + 14)}" fill="#${c.base04}" font-size="13">${label}</text>
     ''
-    + lib.concatStrings (
-      lib.imap0 (i: name: swatch (margin + i * (size + gap)) (y + 24) name) names
-    );
+    + lib.concatStrings (lib.imap0 (i: name: swatch (margin + i * (size + gap)) (y + 24) name) names);
 
   # Each line is a list of [ color text ] segments.
   sample = [
-    [ [ "base03" "# Oriole Park at Camden Yards" ] ]
     [
-      [ "base0E" "def " ]
-      [ "base0D" "first_pitch" ]
-      [ "base05" "(" ]
-      [ "base08" "team" ]
-      [ "base05" ": " ]
-      [ "base0A" "str" ]
-      [ "base05" ", " ]
-      [ "base08" "inning" ]
-      [ "base05" ": " ]
-      [ "base0A" "int" ]
-      [ "base05" " = " ]
-      [ "base09" "1" ]
-      [ "base05" ") -> " ]
-      [ "base0A" "Game" ]
-      [ "base05" ":" ]
+      [
+        "base03"
+        "# Oriole Park at Camden Yards"
+      ]
     ]
     [
-      [ "base0E" "    if not " ]
-      [ "base08" "team" ]
-      [ "base05" ":" ]
+      [
+        "base0E"
+        "def "
+      ]
+      [
+        "base0D"
+        "first_pitch"
+      ]
+      [
+        "base05"
+        "("
+      ]
+      [
+        "base08"
+        "team"
+      ]
+      [
+        "base05"
+        ": "
+      ]
+      [
+        "base0A"
+        "str"
+      ]
+      [
+        "base05"
+        ", "
+      ]
+      [
+        "base08"
+        "inning"
+      ]
+      [
+        "base05"
+        ": "
+      ]
+      [
+        "base0A"
+        "int"
+      ]
+      [
+        "base05"
+        " = "
+      ]
+      [
+        "base09"
+        "1"
+      ]
+      [
+        "base05"
+        ") -> "
+      ]
+      [
+        "base0A"
+        "Game"
+      ]
+      [
+        "base05"
+        ":"
+      ]
     ]
     [
-      [ "base0E" "        raise " ]
-      [ "base0A" "ValueError" ]
-      [ "base05" "(" ]
-      [ "base0B" "\"no lineup\\n\"" ]
-      [ "base05" ")" ]
+      [
+        "base0E"
+        "    if not "
+      ]
+      [
+        "base08"
+        "team"
+      ]
+      [
+        "base05"
+        ":"
+      ]
     ]
     [
-      [ "base0E" "    return " ]
-      [ "base0A" "Game" ]
-      [ "base05" "(home=" ]
-      [ "base0B" "\"Orioles\"" ]
-      [ "base05" ", innings=" ]
-      [ "base09" "9" ]
-      [ "base05" " + " ]
-      [ "base08" "inning" ]
-      [ "base05" ")" ]
+      [
+        "base0E"
+        "        raise "
+      ]
+      [
+        "base0A"
+        "ValueError"
+      ]
+      [
+        "base05"
+        "("
+      ]
+      [
+        "base0B"
+        "\"no lineup\\n\""
+      ]
+      [
+        "base05"
+        ")"
+      ]
+    ]
+    [
+      [
+        "base0E"
+        "    return "
+      ]
+      [
+        "base0A"
+        "Game"
+      ]
+      [
+        "base05"
+        "(home="
+      ]
+      [
+        "base0B"
+        "\"Orioles\""
+      ]
+      [
+        "base05"
+        ", innings="
+      ]
+      [
+        "base09"
+        "9"
+      ]
+      [
+        "base05"
+        " + "
+      ]
+      [
+        "base08"
+        "inning"
+      ]
+      [
+        "base05"
+        ")"
+      ]
     ]
   ];
 
@@ -95,7 +194,9 @@ let
 
   line =
     i: segments:
-    ''<text x="${str (margin + 16)}" y="${str (codeTop + 30 + i * lineHeight)}" font-size="14" xml:space="preserve">''
+    ''<text x="${str (margin + 16)}" y="${
+      str (codeTop + 30 + i * lineHeight)
+    }" font-size="14" xml:space="preserve">''
     + lib.concatMapStrings (
       seg: ''<tspan fill="#${c.${builtins.elemAt seg 0}}">${esc (builtins.elemAt seg 1)}</tspan>''
     ) segments
