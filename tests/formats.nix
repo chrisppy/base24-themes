@@ -53,5 +53,7 @@ in
     lib.hasPrefix "<svg " card
     && lib.hasInfix "<title>A &lt;&amp;&gt; B</title>" card
     && lib.hasInfix ">base16<" card
-    && builtins.all (name: lib.hasInfix "<title>${name} #${cardColors.${name}}</title>" card) base24.colorNames;
+    && builtins.all (
+      name: lib.hasInfix "<title>${name} #${cardColors.${name}}</title>" card
+    ) base24.colorNames;
 }

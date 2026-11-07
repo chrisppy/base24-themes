@@ -34,12 +34,9 @@ let
   stripTop = codeTop + builtins.length sample * lineHeight + 8;
   stripHeight = 28;
   cell = inner / builtins.length colorNames;
-  swatch =
-    i: name:
-    ''<rect x="${str (pad + i * cell)}" y="${str stripTop}" width="${str cell}" height="${str stripHeight}" fill="#${c.${name}}"><title>${name} #${
-      c.${name}
-    }</title></rect>
-'';
+  swatch = i: name: ''
+    <rect x="${str (pad + i * cell)}" y="${str stripTop}" width="${str cell}" height="${str stripHeight}" fill="#${c.${name}}"><title>${name} #${c.${name}}</title></rect>
+  '';
 
   tagTop = stripTop + stripHeight + 14;
   tagHeight = 20;
