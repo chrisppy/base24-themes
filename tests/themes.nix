@@ -1,5 +1,10 @@
-# Bundled themes (themes/) and their README previews (previews/).
-{ base24, fixtures, ... }:
+# Bundled themes (themes/), their previews (previews/) and the gallery (docs/gallery.md).
+{
+  lib,
+  base24,
+  fixtures,
+  ...
+}:
 
 let
   inherit (base24) themes;
@@ -33,4 +38,11 @@ in
     in
     builtins.pathExists file && builtins.readFile file == base24.previews.${name}
   ) (builtins.attrNames themes);
+
+  # docs/gallery.md must show every bundled theme's preview.
+  galleryComplete =
+    let
+      gallery = builtins.readFile ../docs/gallery.md;
+    in
+    builtins.all (name: lib.hasInfix "previews/${name}.svg" gallery) (builtins.attrNames themes);
 }
