@@ -16,6 +16,7 @@ let
     toScss = format ./formats/scss.nix;
     toQml = format ./formats/qml.nix;
     toSvg = format ./formats/svg.nix;
+    toCardSvg = format ./formats/card.nix;
   };
 
   themes = import ./themes.nix { inherit lib; };
@@ -28,4 +29,11 @@ core
   # SVG previews shown in the README. Regenerate one with:
   #   nix eval --raw .#lib.base24.previews.birdland > previews/birdland.svg
   previews = builtins.mapAttrs (_: formats.toSvg) themes;
+
+  # Gallery cards shown in docs/gallery.md. Regenerate one with:
+  #   nix eval --raw .#lib.base24.cards.birdland > previews/cards/birdland.svg
+  cards = builtins.mapAttrs (_: formats.toCardSvg) themes;
+
+  # docs/gallery.md itself (see lib/gallery.nix).
+  gallery = import ./gallery.nix { inherit lib core themes; };
 }

@@ -12,6 +12,8 @@ let
   yaml = base24.toYaml (base16Theme // { name = "Test"; });
   json = builtins.fromJSON (base24.toJson base16Theme);
   svg = base24.toSvg (base16Theme // { name = "A <&> B"; });
+  card = base24.toCardSvg (base16Theme // { name = "A <&> B"; });
+  cardColors = base24.getColors base16Theme;
 in
 {
   yaml =
@@ -45,4 +47,11 @@ in
     lib.hasPrefix "<svg " svg
     && lib.hasInfix "A &lt;&amp;&gt; B" svg
     && builtins.all (name: lib.hasInfix ">${name}<" svg) base24.colorNames;
+
+  # A base16 theme gets a "base16" tag and a swatch for every (filled-in) color.
+  card =
+    lib.hasPrefix "<svg " card
+    && lib.hasInfix "<title>A &lt;&amp;&gt; B</title>" card
+    && lib.hasInfix ">base16<" card
+    && builtins.all (name: lib.hasInfix "<title>${name} #${cardColors.${name}}</title>" card) base24.colorNames;
 }

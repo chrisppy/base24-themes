@@ -1,10 +1,6 @@
-# Bundled themes (themes/), their previews (previews/) and the gallery (docs/gallery.md).
-{
-  lib,
-  base24,
-  fixtures,
-  ...
-}:
+# Bundled themes (themes/), their previews and cards (previews/) and the
+# gallery (docs/gallery.md).
+{ base24, fixtures, ... }:
 
 let
   inherit (base24) themes;
@@ -39,10 +35,20 @@ in
     builtins.pathExists file && builtins.readFile file == base24.previews.${name}
   ) (builtins.attrNames themes);
 
-  # docs/gallery.md must show every bundled theme's preview.
-  galleryComplete =
+  # previews/cards/<theme>.svg must match `nix eval --raw .#lib.base24.cards.<theme>`.
+  cardsUpToDate = builtins.all (
+    name:
     let
-      gallery = builtins.readFile ../docs/gallery.md;
+      file = ../previews/cards + "/${name}.svg";
     in
-    builtins.all (name: lib.hasInfix "previews/${name}.svg" gallery) (builtins.attrNames themes);
+    builtins.pathExists file && builtins.readFile file == base24.cards.${name}
+  ) (builtins.attrNames themes);
+
+  # Every bundled theme has a page, which the gallery links to.
+  pagesExist = builtins.all (name: builtins.pathExists (../docs + "/${name}.md")) (
+    builtins.attrNames themes
+  );
+
+  # docs/gallery.md must match `nix eval --raw .#lib.base24.gallery`.
+  galleryUpToDate = builtins.readFile ../docs/gallery.md == base24.gallery;
 }

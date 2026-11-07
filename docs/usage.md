@@ -1,8 +1,9 @@
 ## Library
 
 Everything lives at `lib.base24`: the functions, the bundled themes
-(`lib.base24.themes.<name>`) and their preview images
-(`lib.base24.previews.<name>`). It is system-independent.
+(`lib.base24.themes.<name>`), their preview images
+(`lib.base24.previews.<name>`) and gallery cards (`lib.base24.cards.<name>`),
+and the gallery page (`lib.base24.gallery`). It is system-independent.
 
 ```nix
 let
@@ -25,6 +26,7 @@ in
 | `getColor theme name` / `getColorHex theme name` | One color, without or with a leading `#` |
 | `toYaml`, `toJson`, `toScss`, `toQml` | The theme as a string in that format |
 | `toSvg theme` | A preview image: palette swatches plus a highlighted code sample |
+| `toCardSvg theme` | A gallery card: code sample, palette strip and system/variant tags |
 
 `toQml` produces a `pragma Singleton` file. Register it in a `qmldir` next to
 it, for example `singleton Theme 1.0 Theme.qml`.
@@ -79,14 +81,18 @@ back to `base00` for `base10`/`base11` and to the matching normal color for
 `base12`–`base17`.
 
 To bundle a theme, add it as `themes/<name>.nix`. Its key is the file name, and
-`name` defaults to it. Bundled themes must define all 24 colors and need a
-preview image:
+`name` defaults to it. Bundled themes must define all 24 colors and need a page
+at `docs/<name>.md`, a preview image and a gallery card, and the gallery has to
+be regenerated:
 
 ```sh
 nix eval --raw .#lib.base24.previews.<name> > previews/<name>.svg
+nix eval --raw .#lib.base24.cards.<name> > previews/cards/<name>.svg
+nix eval --raw .#lib.base24.gallery > docs/gallery.md
 ```
 
-`nix flake check` fails if a preview is missing or out of date.
+`nix flake check` fails if the page is missing or if any generated file is
+missing or out of date.
 
 ## NixOS and Home Manager module
 

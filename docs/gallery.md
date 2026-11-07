@@ -1,10 +1,15 @@
 ## Gallery
 
-Every bundled theme at a glance. Select a preview for its full palette.
+Every bundled theme at a glance. Select one for its full palette.
 
-| Theme | Variant | Preview |
-| ------------------------- | ------- | --------------------------------------------------------------------------------------------------- |
-| [Birdland](./birdland.md) | dark | <a href="./birdland.md"><img src="../previews/birdland.svg" alt="Birdland palette" width="412"></a> |
+<table>
+<tr>
+<td align="center" valign="top">
+<a href="./birdland.md"><img src="../previews/cards/birdland.svg" alt="Birdland" width="260"></a><br>
+<a href="./birdland.md"><strong>Birdland</strong></a>
+</td>
+</tr>
+</table>
 
-To add a theme here, add a row pointing at its `previews/<name>.svg`;
-`nix flake check` fails if a bundled theme is missing from this page.
+This page is generated: run
+`nix eval --raw .#lib.base24.gallery > docs/gallery.md` after adding a theme.

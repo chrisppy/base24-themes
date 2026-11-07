@@ -12,7 +12,8 @@ small library of format converters and a module for NixOS and Home Manager.
 - **Bundled theme**: ships with [`birdland`](./docs/birdland.md) (dark), with
   more planned. Every file in `themes/` is picked up automatically.
 - **Format converters**: `toYaml` (tinted-theming scheme format), `toJson`,
-  `toScss`, `toQml` and `toSvg` (the palette preview images).
+  `toScss`, `toQml`, `toSvg` (the palette preview images) and `toCardSvg` (the
+  gallery cards).
 - **Validation**: themes are checked for missing or malformed colors, and
   `nix flake check` verifies every bundled theme.
 - **Module**: one module for NixOS and Home Manager that exposes the selected
@@ -48,14 +49,15 @@ lib/
   default.nix        library entry point (`lib.base24`)
   core.nix           validation, fallbacks, color access
   themes.nix         loads themes/
-  formats/           one file per exporter: yaml, json, scss, qml, svg
+  gallery.nix        generates docs/gallery.md
+  formats/           one file per exporter: yaml, json, scss, qml, svg, card
 nix/                 flake-parts glue, loaded automatically
   lib.nix            exports lib.base24
   module.nix         NixOS / Home Manager module
   checks.nix         turns tests/ into `nix flake check`
 tests/               one suite per area, plus shared fixtures
 themes/              one file per theme
-previews/            generated SVG previews used in docs/
+previews/            generated SVG previews (and cards/ for the gallery)
 docs/                usage guide, theme pages and the gallery
 ```
 
