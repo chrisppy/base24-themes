@@ -9,7 +9,7 @@ every accent reaches at least 4.5:1 contrast on both the background and the
 panels.
 
 | Slot | Color | Hex | Used for |
-| -------- | ----------------------------- | -------- | ---------------------------- |
+| -------- | ---------------------------- | -------- | ---------------------------- |
 | `base00` | Cream | `f4efe4` | Background |
 | `base01` | Darker cream | `ebe5d8` | Panels, secondary background |
 | `base02` | Tan | `ddd5c5` | Selection |
@@ -35,8 +35,7 @@ panels.
 | `base16` | Intense warehouse brown | `6c4626` | Bright blue |
 | `base17` | Intense brick | `8a3f24` | Bright magenta |
 
-The official Orioles orange (`#df4601`) reaches only 3.6:1 on cream, so
-`base08` uses a deeper shade of it. As in Birdland, the blue and magenta slots
-are brown and brick to stay within the Orioles colors, and the "bright" slots
-are more intense rather than lighter, so they stay readable on a light
-background.
+The official Orioles orange (`#df4601`) reaches only 3.6:1 on cream, so `base08`
+uses a deeper shade of it. As in Birdland, the blue and magenta slots are brown
+and brick to stay within the Orioles colors, and the "bright" slots are more
+intense rather than lighter, so they stay readable on a light background.

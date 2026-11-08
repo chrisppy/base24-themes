@@ -10,7 +10,8 @@ small library of format converters and a module for NixOS and Home Manager.
 ## Features
 
 - **Bundled themes**: ships with [`birdland`](./docs/birdland.md) (dark) and
-  [`birdland-light`](./docs/birdland-light.md) (light), with more planned. Every file in `themes/` is picked up automatically.
+  [`birdland-light`](./docs/birdland-light.md) (light), with more planned. Every
+  file in `themes/` is picked up automatically.
 - **Format converters**: `toYaml` (tinted-theming scheme format), `toJson`,
   `toScss`, `toQml`, `toSvg` (the palette preview images) and `toCardSvg` (the
   gallery cards).
