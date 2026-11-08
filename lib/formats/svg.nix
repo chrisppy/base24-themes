@@ -21,11 +21,16 @@ let
   channel = hex: offset: lib.fromHexString (builtins.substring offset 2 hex);
   isLight = hex: 299 * channel hex 0 + 587 * channel hex 2 + 114 * channel hex 4 > 125000;
 
+  # base00 and base07 are the background and maximum-contrast ends, which swap
+  # sides between dark and light themes.
+  darkInk = if isLight c.base00 then c.base07 else c.base00;
+  lightInk = if isLight c.base00 then c.base00 else c.base07;
+
   swatch =
     x: y: name:
     let
       hex = c.${name};
-      ink = if isLight hex then c.base00 else c.base07;
+      ink = if isLight hex then darkInk else lightInk;
     in
     ''
       <rect x="${str x}" y="${str y}" width="${str size}" height="${str height}" rx="6" fill="#${hex}" stroke="#${c.base02}"/>

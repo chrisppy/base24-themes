@@ -35,4 +35,4 @@ accent reaches at least 4.5:1 contrast on the background.
 | `base17` | Bright brick | `d6875c` | Bright magenta |
 
 The blue and magenta slots are deliberately orange and brick to stay within the
-Orioles colors.
+Orioles colors. For a light variant, see [Birdland Light](./birdland-light.md).

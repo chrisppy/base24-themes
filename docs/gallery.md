@@ -8,6 +8,10 @@ Every bundled theme at a glance. Select one for its full palette.
 <a href="./birdland.md"><img src="../previews/cards/birdland.svg" alt="Birdland" width="260"></a><br>
 <a href="./birdland.md"><strong>Birdland</strong></a>
 </td>
+<td align="center" valign="top">
+<a href="./birdland-light.md"><img src="../previews/cards/birdland-light.svg" alt="Birdland Light" width="260"></a><br>
+<a href="./birdland-light.md"><strong>Birdland Light</strong></a>
+</td>
 </tr>
 </table>
 
