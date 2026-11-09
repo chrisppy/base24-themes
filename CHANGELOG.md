@@ -12,9 +12,9 @@ Unreleased. Routine flake input updates and formatting commits are left out.
 
 #### Added
 
-- [Birdland Light](./docs/birdland-light.md) theme: a cream background,
-  charcoal text, and the Orioles accents deepened to reach 4.5:1 contrast on
-  `base00` and `base01`.
+- [Birdland Light](./docs/birdland-light.md) theme: a cream background, charcoal
+  text, and the Orioles accents deepened to reach 4.5:1 contrast on `base00` and
+  `base01`.
 
 #### Fixed
 
@@ -33,8 +33,8 @@ Unreleased. Routine flake input updates and formatting commits are left out.
 
 #### Changed
 
-- README split into [usage](./docs/usage.md), [Birdland](./docs/birdland.md)
-  and [gallery](./docs/gallery.md) pages.
+- README split into [usage](./docs/usage.md), [Birdland](./docs/birdland.md) and
+  [gallery](./docs/gallery.md) pages.
 
 ### 2026-10-25
 
