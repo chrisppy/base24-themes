@@ -11,7 +11,7 @@ let
   inherit (getMeta theme) variant;
 in
 ''
-  // Generated from chrisppy/base24-themes
+  // Generated from red-oxide/base24-themes
   // Variant: ${variant}
   // Do not edit manually.
 

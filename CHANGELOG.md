@@ -87,7 +87,7 @@ Unreleased. Routine flake input updates and formatting commits are left out.
 
 #### Changed
 
-- Formatting moved to [devfmt](https://github.com/chrisppy/devfmt).
+- Formatting moved to [devfmt](https://github.com/red-oxide/devfmt).
 - Flake inputs are updated by a scheduled workflow.
 
 ### 2026-09-28 to 2026-09-29

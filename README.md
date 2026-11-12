@@ -28,7 +28,7 @@ Add `base24-themes` as an input in your `flake.nix`:
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    base24-themes.url = "github:chrisppy/base24-themes";
+    base24-themes.url = "github:red-oxide/base24-themes";
     base24-themes.inputs.nixpkgs.follows = "nixpkgs";
   };
 
